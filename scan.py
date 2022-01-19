@@ -47,6 +47,19 @@ def onMouse(event, x, y, flags, param):  #마우스 이벤트 콜백 함수 구�
             # 원근 변환 적용
             result = cv2.warpPerspective(img, mtrx, (int(width), int(height)))
             cv2.imshow('scanned', result)
+            
+            # 배경 제거 및 필터 
+            gx_kernel = np.array([[-1,1]])
+            gy_kernel = np.array([[-1], [1]])
+
+            edge_gx = cv2.filter2D(result, -1, gx_kernel)
+            edge_gy = cv2.filter2D(result, -1, gy_kernel)
+
+            merged = np.hstack((result, edge_gx, edge_gy))
+            cv2.imshow('edge', merged)
+            
+
+            
 cv2.imshow(win_name, img)
 cv2.setMouseCallback(win_name, onMouse)    # 마우스 콜백 함수를 GUI 윈도우에 등록 ---④
 cv2.waitKey(0)
