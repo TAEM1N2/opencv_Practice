@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 
-img = result
+img = cv2.imread("paper.jpg")
 
 gx_kernel = np.array([[-1,1]])
 gy_kernel = np.array([[-1], [1]])
