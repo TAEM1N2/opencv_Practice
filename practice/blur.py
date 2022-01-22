@@ -3,6 +3,7 @@ import numpy as np
 
 img = cv2.imread("paper.jpg")
 
-#가우시안 커널 직접 생성
-k1 = np.array
-
+blur = cv2.GaussianBlur(img, (3,3), 0)
+cv2.imshow('gaussian blur', blur)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
