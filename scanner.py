@@ -16,5 +16,11 @@ edged = cv2.Canny(gray, 100,200)
 cv2.imshow("win_name", edged)
 cv2.waitKey(0)
 
+cnts, _ = cv2.findContours(edged.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
+cv2.drawContours(draw, cnts, -1, (0,255,0))
+cv2.imshow(win_name, draw)
+cv2.waitKey(0)
+
 
 
