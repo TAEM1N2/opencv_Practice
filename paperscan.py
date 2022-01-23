@@ -1,11 +1,12 @@
 import cv2
 import numpy as np
 
-img_name = input()
 
+img_name = input()
 win_name = 'scan'
 # 이미지 읽기
 img = cv2.imread(img_name)
+
 cv2.imshow('original', img)
 cv2.waitKey(0)
 draw = img.copy()
@@ -58,7 +59,7 @@ pts1 = np.float32([topLeft, topRight, bottomRight , bottomLeft])
 w1 = abs(bottomRight[0] - bottomLeft[0])    # 상단 좌우 좌표간의 거리
 w2 = abs(topRight[0] - topLeft[0])          # 하당 좌우 좌표간의 거리
 h1 = abs(topRight[1] - bottomRight[1])      # 우측 상하 좌표간의 거리
-h2 = abs(topLeft[1] - bottomLeft[1])        # 좌측 상하 좌표간의 거리
+h2 = abs(topLeft[1] - bottomLeft[1])        # 좌측 상하 좌표간의 거리  
 width = max([w1, w2])                       # 두 좌우 거리간의 최대값이 서류의 폭
 height = max([h1, h2])                      # 두 상하 거리간의 최대값이 서류의 높이
 
@@ -70,6 +71,17 @@ pts2 = np.float32([[0,0], [width-1,0],
 mtrx = cv2.getPerspectiveTransform(pts1, pts2)
 # 원근 변환 적용
 result = cv2.warpPerspective(img, mtrx, (int(width), int(height)))
+
+
+# gx_kernel = np.array([[-1,1]])
+# gy_kernel = np.array([[-1], [1]])
+
+# edge_gx = cv2.filter2D(result, -1, gx_kernel)
+# edge_gy = cv2.filter2D(result, -1, gy_kernel)
+
+# merged = np.hstack((edge_gx, edge_gy))
+# cv2.imshow('edge', merged)
+
 cv2.imshow(win_name, result)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
